@@ -1,0 +1,37 @@
+<br />
+<%= form_for(@sighting, :html => { :class => "form-horizontal"} ) do |f| %>
+  <% if @sighting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sighting.errors.count, "error") %> prohibited this sighting from being saved:</h2>
+
+      <ul>
+      <% @sighting.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :address, :class => 'control-label'  %>
+	<div class = "controls">
+    <%= f.text_field :address %>
+	</div>
+  </div>
+  <div class="control-group">
+    <%= f.label :type_id, :class => 'control-label' %>
+	<div class = "controls">
+	<%= collection_select(:sighting, :type_id, @types, :id, :name, {:prompt => false })  %>
+	</div>
+  </div>
+  <div class="control-group">
+    <%= f.label :description, :class => 'control-label'%>
+	<div class = "controls">
+    <%= f.text_area :description %>
+	 <div class="actions"><br />
+    <%= f.submit 'Create Sighting', :class => 'btn btn-primary btn-large' %>
+  </div>
+	</div>
+  </div>
+ 
+<% end %>

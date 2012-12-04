@@ -1,0 +1,30 @@
+<h1>Listing sightings</h1>
+
+<table>
+  <tr>
+    <th>Address</th>
+    <th>Lat</th>
+    <th>Long</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @sightings.each do |sighting| %>
+  <tr>
+    <td><%= sighting.address %></td>
+    <td><%= sighting.lat %></td>
+    <td><%= sighting.long %></td>
+    <td><%= sighting.type_id %></td>
+    <td><%= sighting.description %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Sighting', new_sighting_path %>
+<div id="map_canvas" style="width: 500px; height: 300px"></div>
+

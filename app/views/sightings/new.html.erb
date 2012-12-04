@@ -1,0 +1,25 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div class="brand"> NBN Stalker</div>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><%= link_to 'Map', "/" %></li>
+              <li class="active"><%= link_to 'New Sighting', new_sighting_path %></li>
+			  </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+<div class = "hero-unit">
+<h1>New sighting</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Map', "/"%>
+</div>

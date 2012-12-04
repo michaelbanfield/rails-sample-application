@@ -1,0 +1,77 @@
+<script type="text/javascript">
+function initialize() {
+    var mapOptions = {
+        center: new google.maps.LatLng(-34.397, 150.644),
+        zoom: 8,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"),
+        mapOptions);
+    $.ajaxSetup( {
+        "async": false
+    } );
+    $.getJSON('/sightings.json', function(data) {
+        for (var i = 0; i < data.length; i++) {
+            addressString = data[i].address
+            descriptionString = data[i].description;
+			var geocoder= new google.maps.Geocoder();
+            geocoder.geocode({
+                'address' : addressString
+            }, function(results, status){
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var point = new google.maps.LatLng(parseFloat(results[0].geometry.location.lat()), 
+                        parseFloat(results[0].geometry.location.lng()));
+                    marker = new google.maps.Marker({
+                        map:map,
+                        html: descriptionString,
+                        position: point
+                    });
+                    var infowindow = new google.maps.InfoWindow({
+                        content: "herro"
+                    });
+                    google.maps.event.addListener(marker, 'click', function() {
+                        infowindow.setContent(this.html);
+                        infowindow.open(map, this);
+                    });
+                }
+            });
+				
+        }
+    });
+	
+	
+}
+    </script>
+ <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div class="brand"> NBN Stalker</div>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><%= link_to 'Map', "/" %></li>
+              <li><%= link_to 'New Sighting', new_sighting_path %></li>
+			  </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+ <div class="container">
+	<div class = "hero-unit">
+	
+<h1>Welcome To NBN Stalker</h1>
+<p>The National broadband network is one of the most important infrastructure projects for the future of Australia.
+Ignore the FUD, a FTTH based NBN is the only sensible way to move forward with broadband policy in australia.</p>
+<p>However one area where the NBN has been a let down is updates on progress. There is a "rollout map" but for a lot of people pink and blue splotches dont cut it! 
+The solution to this, like most problems, is stalking. </p>
+<p>Telecoms forums such as Whirlpool already have groups of people posting about where they have seen NBN progress, this site is meant to be a low overheads way to aggregate that information. 
+Its pretty basic, click "New Sighting" up the top, input an approximate address and a the type of sighting (will add to these as they are needed) and put links to relevant pictures (imgur is your friend) in the description.</p>
+<p>NBN stalker is built with Ruby on Rails and Twitter Bootstrap</p>
+
+</div>
+<div id="map_canvas" style="width: 940px; height: 600px"></div>
+</div> <!-- /container -->
